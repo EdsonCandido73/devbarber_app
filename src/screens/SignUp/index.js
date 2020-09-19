@@ -12,6 +12,8 @@ import {
 
 import SignInput from '../../components/SignInput';
 
+import Api from '../../Api';
+
 import BarberLogo from '../../assets/barber.svg';
 import PersonIcon from '../../assets/person.svg';
 import EmailIcon from '../../assets/email.svg';
@@ -25,8 +27,20 @@ export default () => {
     const [emailField, setEmailField] = useState('');
     const [passwordField, setPasswordField] = useState('');
 
-    const handleSignClick = () => {
-        
+    const handleSignClick = async () => {
+        if(nameField != '' && emailField != '' && passwordField != '') {
+            let res = await Api.signUp(nameField, emailField, passwordField);
+
+            
+            if(res.token) {
+                alert("DEU CERTO!");
+            } else {
+                alert("Erro: "+res.error);
+            }
+
+        } else {
+            alert("Preencha os campos!");
+        }
     }
 
     const handleMessageButtonClick = () => {
