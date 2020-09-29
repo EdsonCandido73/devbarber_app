@@ -36,7 +36,10 @@ export const SwipeImage = styled.Image`
     height: 240px;
 `;
 
-export const FakeSwiper = styled.View``;
+export const FakeSwiper = styled.View`
+    height: 140px;
+    background-color: #63C2D1;
+`;
 
 export const PageBody = styled.View`
     background-color: #FFFFFF;
@@ -45,18 +48,53 @@ export const PageBody = styled.View`
     min-height: 400px;
 `;
 
-export const UserInfoArea = styled.View``;
+export const UserInfoArea = styled.View`
+    flex.direction: row;
+    margin-top: -30px;
+`;
 
-export const UserAvatar = styled.Image``;
+export const UserAvatar = styled.Image`
+    width: 110px;
+    height: 110px;
+    border-radius: 20px;
+    margin-left: 30px;
+    margin-right: 20px;
+    border-width: 4px;
+    border-color: #FFFFFF;
+`;
 
-export const UserInfo = styled.View``;
+export const UserInfo = styled.View`
+    flex: 1;
+    justify-content: flex-end;
+`;
 
-export const UserInfoName = styled.Text``;
+export const UserInfoName = styled.Text`
+    color: #000000;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+`;
 
-export const UserFavButton = styled.TouchableOpacity``;
+export const UserFavButton = styled.TouchableOpacity`
+    width: 40px;
+    height: 40px;
+    background-color: #FFFFFF;
+    border: 2px solid #999999;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+`;
 
 export const ServiceArea = styled.View``;
 
 export const TestimonialArea = styled.View``;
 
-
+export const BackButton = styled.TouchableOpacity`
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9;
+`;

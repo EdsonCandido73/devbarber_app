@@ -6,6 +6,7 @@ import Swiper from 'react-native-swiper';
 import Stars from '../../components/Stars';
 
 import FavoriteIcon from '../../assets/favorite.svg';
+import BackIcon from '../../assets/back.svg';
 
 import { 
     Container,
@@ -22,7 +23,8 @@ import {
     UserAvatar,
     UserInfo,
     UserInfoName,
-    UserFavButton
+    UserFavButton,
+    BackButton
 } from './styles';
 
 import Api from '../../Api';
@@ -55,6 +57,10 @@ export default () => {
         }
         getBarberInfo();
     }, []);
+
+    const handleBackButton = () => {
+        navigation.goBack();
+    }
 
     return (
         <Container>
@@ -96,7 +102,10 @@ export default () => {
 
                     </TestimonialArea>
                 </PageBody>
-            </Scroller>            
+            </Scroller>
+            <BackButton onPress={handleBackButton}>
+                <BackIcon width="44" height="44" fill="#FFFFFF" />
+            </BackButton>            
         </Container>
     );
 }
