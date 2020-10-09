@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
 
 import ExpandIcon from '../assets/expand.svg';
+import NavPrevIcon from '../assets/nav_prev.svg';
+import NavNextIcon from '../assets/nav_next.svg';
+
 
 const Modal = styled.Modal``;
 
@@ -77,9 +80,95 @@ const FinishButtonText = styled.Text`
     font-weight: bold;
 `;
 
+const DateInfo = styled.View`
+    flex-direction: row;
+`;
+
+const DatePrevArea = styled.TouchableOpacity`
+    flex: 1;
+    justify-content: flex-end;
+    align-items: flex-end;
+`;
+
+const DateTitleArea = styled.View`
+    width: 140px;
+    justify-content: center;
+    align-items: center;
+`;
+
+const DateTitle = styled.Text`
+    font-size: 17px;
+    font-weight: bold;
+    color: #000000;
+`;
+
+const DateNextArea = styled.TouchableOpacity`
+    flex: 1;
+    align-items: flex-start;
+`;
+
+const DateList = styled.ScrollView``;
+
+
+const months = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro'
+];
+
+const days = [
+    'Dom',
+    'Seg',
+    'Ter',
+    'Qua',
+    'Qui',
+    'Sex',
+    'Sab'
+];
 
 export default ({ show, setShow, user, service }) => {
     const navigation = useNavigation();
+
+    const [selectedYear, setSelectedYear] = useState(0);
+    const [selectedMonth, setSelectedMonth] = useState(0);
+    const [selectedDay, setSelectedDay] = useState(0);
+    const [selectedHour, setSelectedHour] = useState(null);
+    const [listDays, setListDays] = useState([]);
+    const [listHours, setListHours] = useState([]);
+
+    useEffect(() => {
+        let today = new Date();
+        setSelectedYear( today.getFullYear() );
+        setSelectedMonth( today.getMonth() );
+        setSelectedDay( today.getDate() );
+    }, []);
+
+    const handleLeftDateClick = () => {
+        let mountDate = new Date(selectedYear, selectedMonth, 1);
+        mountDate.setMonth( mountDate.getMonth() - 1 );
+        setSelectedYear(mountDate.getFullYear());
+        setSelectedMonth(mountDate.getMonth());
+        setSelectedDay(1);
+    }
+
+    const handleRightDateClick = () => {
+        let mountDate = new Date(selectedYear, selectedMonth, 1);
+        mountDate.setMonth( mountDate.getMonth() + 1 );
+        setSelectedYear(mountDate.getFullYear());
+        setSelectedMonth(mountDate.getMonth());
+        setSelectedDay(1);
+    }
+
+
 
     const handleCloseButton = () => {
         setShow(false);
@@ -116,6 +205,23 @@ export default ({ show, setShow, user, service }) => {
                             </ServiceInfo>
                         </ModalItem>
                     }
+
+                    <ModalItem>
+                        <DateInfo>
+                            <DatePrevArea onPress={handleLeftDateClick} >
+                                <NavPrevIcon width="35" height="35" fill="#000000" />
+                            </DatePrevArea>
+                            <DateTitleArea>
+                                <DateTitle>{months[selectedMonth]} {selectedYear}</DateTitle>
+                            </DateTitleArea>
+                            <DateNextArea onPress={handleRightDateClick}>
+                                <NavNextIcon width="35" height="35" fill="#000000" />
+                            </DateNextArea>
+                        </DateInfo>
+                        <DateList horizontal={true} showsHorizontalScrollIndicator={false}>
+                            
+                        </DateList>
+                    </ModalItem>
 
 
                     <FinishButton onPress={handleFinishClick}>
